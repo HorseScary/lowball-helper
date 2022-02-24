@@ -1,0 +1,7 @@
+{
+    "name": "LowballHelper",
+    "creator": "Horse",
+    "version": "0.1.0",
+    "description": "Module to help with lowballing",
+    "entry": "index.js"
+}
