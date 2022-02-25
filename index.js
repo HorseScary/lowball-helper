@@ -4,12 +4,13 @@
 
 register("command", (price, margin) =>{
     price = unshortenNumber(price)
-    ChatLib.chat(`${price - (price * (margin/100))}`)
+    let finalPrice = (price - (price * (margin/100)))
+    ChatLib.chat(`${finalPrice}`)
 }).setName('calcmargin')
 
 register("command", (margin) => {
     //TODO: figure out how config files work so that i can save margin
-}).setName('setmargine')
+}).setName('setmargin')
 
 function unshortenNumber(number) {
     multiplier = number.charAt(number.length - 1)
@@ -23,6 +24,9 @@ function unshortenNumber(number) {
     }
     else if (multiplier == 'b') {
         return(number*1000000000)
+    } 
+    else {
+        return(number)
     }
 }
 
