@@ -10,6 +10,13 @@ register("command", (price, margin) =>{
 
 register("command", (margin) => {
     //TODO: figure out how config files work so that i can save margin
+    if (isNaN(parseFloat(margin))) {
+        ChatLib.chat(`'${margin}' is not a valid margin!`)
+    }
+    else {
+        FileLib.write('./config/ChatTriggers/modules/lowball-helper/margin.txt', parseFloat(margin))
+        ChatLib.chat(`Margin has been set to ${margin}!`)
+    }
 }).setName('setmargin')
 
 function unshortenNumber(number) {
