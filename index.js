@@ -3,9 +3,14 @@
 // working config
 
 register("command", (price, margin) =>{
+    if (margin == undefined) {
+        margin = FileLib.read('./config/ChatTriggers/modules/lowball-helper/margin.txt')
+    }
+
     price = unshortenNumber(price)
     let finalPrice = (price - (price * (margin/100)))
-    ChatLib.chat(`${finalPrice}`)
+    
+    ChatLib.chat(`&dPercent lowballed: &e${margin}% \n&dFinal price: &a${finalPrice}`)
 }).setName('calcmargin')
 
 register("command", (margin) => {
@@ -17,7 +22,20 @@ register("command", (margin) => {
         FileLib.write('./config/ChatTriggers/modules/lowball-helper/margin.txt', parseFloat(margin))
         ChatLib.chat(`Margin has been set to ${margin}!`)
     }
-}).setName('setmargin')
+}).setName('setdefaultmargin')
+
+register('tick', () => {
+    let gui = Player.getOpenedInventory()
+    let guiname = gui.getName()
+
+    ChatLib.chat(guiname)
+    if (guiname.includes('You  ')) {
+        items = gui.getStackInSlot(0)
+        if (items != null) {
+            ChatLib.chat(`${items.getName()}\n${items.getLore()}`)
+        }
+    }
+});
 
 function unshortenNumber(number) {
     multiplier = number.charAt(number.length - 1)
@@ -31,9 +49,13 @@ function unshortenNumber(number) {
     }
     else if (multiplier == 'b') {
         return(number*1000000000)
-    } 
+    }
     else {
         return(number)
     }
 }
 
+
+function reshortenNumber(number) {
+
+}
