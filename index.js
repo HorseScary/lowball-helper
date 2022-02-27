@@ -4,6 +4,15 @@
 const itemsInTrade = []
 const itemsInTradeLore = []
 const tradeMenuSlots = [5, 6, 7, 8, 14, 15, 16, 17, 23, 24, 25, 26, 32, 33, 34, 35]
+const chatLine = '&b-----------------------------------------------------'
+
+register("command", () => {
+    ChatLib.chat(`
+    ${chatLine}
+
+    ${chatLine}
+    `)
+}).setName('lbhelp')
 
 register("command", (price, margin) =>{
     if (margin == undefined) {
@@ -44,12 +53,11 @@ register("command", (index) => {
         ChatLib.chat("&cPlease enter a valid number!")
     } 
     else {
-        space = '&b-----------------------------------------------------'
         ChatLib.chat(space)
         for (i = 0; i < lore.length; i++) {
             ChatLib.chat(`${lore[i]}`)
         }
-        ChatLib.chat(space)
+        ChatLib.chat(chatLine)
     }
 }).setName('lbitemlore')
 
