@@ -1,6 +1,9 @@
 // Things this needs: 
 // get items inside of trade menu and put them on screen
 // working config
+const itemsInTrade = []
+const itemsInTradeLore = []
+const tradeMenuSlots = [5, 6, 7, 8, 14, 15, 16, 17, 23, 24, 25, 26, 32, 33, 34, 35]
 
 register("command", (price, margin) =>{
     if (margin == undefined) {
@@ -11,6 +14,7 @@ register("command", (price, margin) =>{
     let finalPrice = (price - (price * (margin/100)))
     
     ChatLib.chat(`&dPercent lowballed: &e${margin}% \n&dFinal price: &a${finalPrice}`)
+    
 }).setName('calcmargin')
 
 register("command", (margin) => {
@@ -24,18 +28,45 @@ register("command", (margin) => {
     }
 }).setName('setdefaultmargin')
 
+register("command", () => {
+    for (i = 0; i < itemsInTrade.length; i ++) {
+        if (itemsInTrade[i] != null) {
+            ChatLib.chat(`${i + 1}: ${itemsInTrade[i]}`)
+        }
+    }
+}).setName('lbitems')
+
+register("command", (index) => {
+    lore = itemsInTradeLore[0]
+
+    if (index == undefined || lore == undefined) {
+        ChatLib.chat("&cPlease enter a valid number!")
+    } 
+    else {
+        for (i = 0; i < lore.length; i++) {
+            ChatLib.chat(lore[i])
+        }
+    }
+}).setName('lbitemlore')
+
+
+
 register('tick', () => {
     let gui = Player.getOpenedInventory()
     let guiname = gui.getName()
 
-    ChatLib.chat(guiname)
     if (guiname.includes('You  ')) {
-        items = gui.getStackInSlot(0)
-        if (items != null) {
-            ChatLib.chat(`${items.getName()}\n${items.getLore()}`)
+        for (i = 0; i < 16; i++) {
+            item = gui.getStackInSlot(tradeMenuSlots[i])
+
+            ChatLib.chat(i)
+
+            itemsInTrade[i] = item.getName()
+            itemsInTradeLore[i] = item.getLore()
         }
     }
 });
+
 
 function unshortenNumber(number) {
     multiplier = number.charAt(number.length - 1)
