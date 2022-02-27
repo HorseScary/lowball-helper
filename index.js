@@ -30,39 +30,44 @@ register("command", (margin) => {
 
 register("command", () => {
     for (i = 0; i < itemsInTrade.length; i ++) {
-        if (itemsInTrade[i] != null) {
-            ChatLib.chat(`${i + 1}: ${itemsInTrade[i]}`)
+        if (itemsInTrade[i] == null) {
+            break
         }
+        ChatLib.chat(`${i + 1}: ${itemsInTrade[i]}`)
     }
 }).setName('lbitems')
 
 register("command", (index) => {
-    lore = itemsInTradeLore[0]
+    lore = itemsInTradeLore[parseInt(index - 1)]
 
     if (index == undefined || lore == undefined) {
         ChatLib.chat("&cPlease enter a valid number!")
     } 
     else {
+        space = '&b-----------------------------------------------------'
+        ChatLib.chat(space)
         for (i = 0; i < lore.length; i++) {
-            ChatLib.chat(lore[i])
+            ChatLib.chat(`${lore[i]}`)
         }
+        ChatLib.chat(space)
     }
 }).setName('lbitemlore')
 
 
 
 register('tick', () => {
-    let gui = Player.getOpenedInventory()
-    let guiname = gui.getName()
+    gui = Player.getOpenedInventory()
+    guiname = gui.getName()
 
     if (guiname.includes('You  ')) {
+        wipeItems()
         for (i = 0; i < 16; i++) {
             item = gui.getStackInSlot(tradeMenuSlots[i])
 
-            ChatLib.chat(i)
-
-            itemsInTrade[i] = item.getName()
-            itemsInTradeLore[i] = item.getLore()
+            if (item != null) {
+                itemsInTrade[i] = item.getName()
+                itemsInTradeLore[i] = item.getLore()
+            }
         }
     }
 });
@@ -89,4 +94,11 @@ function unshortenNumber(number) {
 
 function reshortenNumber(number) {
 
+}
+
+function wipeItems() { 
+    for (i = 0; i < itemsInTrade.length; i++) {
+        itemsInTrade[i] = null
+        itemsInTradeLore[i] = null
+    }
 }
