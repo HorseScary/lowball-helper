@@ -102,7 +102,18 @@ function unshortenNumber(number) {
 }
 
 function reshortenNumber(number) {
-
+    if (number >= 1000000000) {
+        return(`${number/1000000000}b`)
+    }
+    else if (number >= 1000000) {
+        return(`${number/1000000}m`)
+    }
+    else if (number >= 1000) {
+        return(`${number/1000}k`)
+    }
+    else {
+        return(number)
+    }
 }
 
 function wipeItems() { 
