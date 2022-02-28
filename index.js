@@ -26,9 +26,10 @@ register("command", (price, margin) =>{
     }
 
     price = unshortenNumber(price)
-    let finalPrice = (price - (price * (margin/100)))
+    profit = price * (margin/100)
+    let finalPrice = (price - profit)
     
-    ChatLib.chat(`&dPercent lowballed: &e${margin}% \n&dFinal price: &a${finalPrice}`)
+    ChatLib.chat(`&dPercent lowballed: &e${margin}% \n&dFinal price: &a${finalPrice}\n&dProfit: &6${profit}`)
     
 }).setName('calcmargin')
 
