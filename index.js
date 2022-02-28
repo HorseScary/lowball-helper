@@ -33,7 +33,6 @@ register("command", (price, margin) =>{
 }).setName('calcmargin')
 
 register("command", (margin) => {
-    //TODO: figure out how config files work so that i can save margin
     if (isNaN(parseFloat(margin))) {
         ChatLib.chat(`'${margin}' is not a valid margin!`)
     }
