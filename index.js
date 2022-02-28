@@ -6,6 +6,8 @@ const itemsInTradeLore = []
 const tradeMenuSlots = [5, 6, 7, 8, 14, 15, 16, 17, 23, 24, 25, 26, 32, 33, 34, 35]
 const chatLine = '&b-----------------------------------------------------'
 
+//TODO: add /lbtrades command which would list players traded with 
+//TODO: adapt /lbitems to save trades from multiple players
 register("command", () => {
     ChatLib.chat(`
 ${chatLine}
