@@ -8,10 +8,16 @@ const chatLine = '&b-----------------------------------------------------'
 
 register("command", () => {
     ChatLib.chat(`
-    ${chatLine}
-
-    ${chatLine}
-    `)
+${chatLine}
+&6calcmargin &e[price] [margin (optional)]
+&fCalculates percentage margins of a given price
+&6setmargin &e[margin]
+&fSets default margin for calcmargin
+&6lbitems
+&fPuts names of the last items put in trade menu in chat
+&6lbitemlore &e[item number]
+&fPuts lore of given item (from lbitems) in chat
+${chatLine}`)
 }).setName('lbhelp')
 
 register("command", (price, margin) =>{
@@ -61,8 +67,6 @@ register("command", (index) => {
     }
 }).setName('lbitemlore')
 
-
-
 register('tick', () => {
     gui = Player.getOpenedInventory()
     guiname = gui.getName()
@@ -79,7 +83,6 @@ register('tick', () => {
         }
     }
 });
-
 
 function unshortenNumber(number) {
     multiplier = number.charAt(number.length - 1)
@@ -98,7 +101,6 @@ function unshortenNumber(number) {
         return(number)
     }
 }
-
 
 function reshortenNumber(number) {
 
