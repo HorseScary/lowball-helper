@@ -9,9 +9,9 @@ const chatLine = '&b-----------------------------------------------------'
 register("command", () => {
     ChatLib.chat(`
 ${chatLine}
-&6calcmargin &e[price] [margin (optional)]
+&6lbcalcmargin &e[price] [margin (optional)]
 &fCalculates percentage margins of a given price
-&6setmargin &e[margin]
+&6lbsetdefaultmargin &e[margin]
 &fSets default margin for calcmargin
 &6lbitems
 &fPuts names of the last items put in trade menu in chat
@@ -31,7 +31,7 @@ register("command", (price, margin) =>{
     
     ChatLib.chat(`&dPercent lowballed: &e${margin}% \n&dFinal price: &a${finalPrice}\n&dProfit: &6${profit}`)
     
-}).setName('calcmargin')
+}).setName('lbcalcmargin')
 
 register("command", (margin) => {
     if (isNaN(parseFloat(margin))) {
@@ -41,7 +41,7 @@ register("command", (margin) => {
         FileLib.write('./config/ChatTriggers/modules/lowball-helper/margin.txt', parseFloat(margin))
         ChatLib.chat(`Margin has been set to ${margin}!`)
     }
-}).setName('setdefaultmargin')
+}).setName('lbsetdefaultmargin')
 
 register("command", () => {
     for (i = 0; i < itemsInTrade.length; i ++) {
