@@ -1,0 +1,9 @@
+2 arrays 1 containing player names 1 containing items
+
+1 array with arrays nammed as playre names
+
+
+array with player names (with lbplayers or something to show said list)
+arrays nammed after players ([playername]Items and [playername]Lore)
+
+use eval to convert strings to variable thing
