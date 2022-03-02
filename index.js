@@ -3,7 +3,9 @@
 // working config
 const itemsInTrade = []
 const itemsInTradeLore = []
-const tradeMenuSlots = [5, 6, 7, 8, 14, 15, 16, 17, 23, 24, 25, 26, 32, 33, 34, 35]
+const players = []
+
+const tradeMenuSlots = [5, 6, 7, 8, 14, 15, 16, 17, 23, 24, 25, 26, 32, 33, 34, 35] //im too lazy to actualy do the math on this
 const chatLine = '&b-----------------------------------------------------'
 
 //TODO: add /lbtrades command which would list players traded with 
@@ -75,6 +77,12 @@ register('tick', () => {
 
     if (guiname.includes('You  ')) {
         wipeItems()
+        
+        playerName = guiname.slice(5)
+        if (!players.includes(playerName)) {
+            players[players.length] = playerName
+        }
+
         for (i = 0; i < 16; i++) {
             item = gui.getStackInSlot(tradeMenuSlots[i])
 
