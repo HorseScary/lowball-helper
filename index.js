@@ -6,9 +6,6 @@ const lastTraded = null
 const tradeMenuSlots = [5, 6, 7, 8, 14, 15, 16, 17, 23, 24, 25, 26, 32, 33, 34, 35] //im too lazy to actualy do the math on this
 const chatLine = '&b-----------------------------------------------------'
 
-//TODO: add /lbtrades command which would list players traded with 
-//TODO: adapt /lbitems to save trades from multiple players
-
 //commands
 register("command", () => {
     ChatLib.chat(`
@@ -17,8 +14,8 @@ ${chatLine}
 &fCalculates percentage margins of a given price
 &6lbsetdefaultmargin &e[margin]
 &fSets default margin for calcmargin
-&6lbitems
-&fPuts names of the last items put in trade menu in chat
+&6lbitems &e[player (optional)]
+&fPuts the items placed in trade menu of a given player in chat. Defaults to the last player traded with
 &6lbitemlore &e[item number]
 &fPuts lore of given item (from lbitems) in chat
 &6lbplayers
