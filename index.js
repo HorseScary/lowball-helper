@@ -1,8 +1,6 @@
 // Things this needs: 
 // get items inside of trade menu and put them on screen
 // working config
-const itemsInTrade = []
-const itemsInTradeLore = []
 const players = []
 
 const tradeMenuSlots = [5, 6, 7, 8, 14, 15, 16, 17, 23, 24, 25, 26, 32, 33, 34, 35] //im too lazy to actualy do the math on this
@@ -53,11 +51,15 @@ register("command", (margin) => {
     }
 }).setName('lbsetdefaultmargin')
 
-//TODO: make lbitems take player name
 //lists items put in last trade
-register("command", () => {
+register("command", (player) => {
+    if (player == undefined) {
+        player = lastTraded
+    }
+
+    items = eval(`${player}Items]`)
     for (i = 0; i < itemsInTrade.length; i ++) {
-        if (itemsInTrade[i] == null) {
+        if (items[i] == null) {
             break
         }
         ChatLib.chat(`${i + 1}: ${itemsInTrade[i]}`)
@@ -97,6 +99,7 @@ register('tick', () => {
         wipeItems()
         
         playerName = guiname.slice(5)
+        const lastTraded = playerName
         if (!players.includes(playerName)) {
             players[players.length] = playerName
             eval(`
