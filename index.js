@@ -10,6 +10,8 @@ const chatLine = '&b-----------------------------------------------------'
 
 //TODO: add /lbtrades command which would list players traded with 
 //TODO: adapt /lbitems to save trades from multiple players
+
+//commands
 register("command", () => {
     ChatLib.chat(`
 ${chatLine}
@@ -21,9 +23,12 @@ ${chatLine}
 &fPuts names of the last items put in trade menu in chat
 &6lbitemlore &e[item number]
 &fPuts lore of given item (from lbitems) in chat
+&6lbplayers
+&fPuts the names of the players that you have traded with in chat
 ${chatLine}`)
 }).setName('lbhelp')
 
+//puts the percentage of a given price in chat
 register("command", (price, margin) =>{
     if (margin == undefined) {
         margin = FileLib.read('./config/ChatTriggers/modules/lowball-helper/margin.txt')
@@ -37,6 +42,7 @@ register("command", (price, margin) =>{
     
 }).setName('lbcalcmargin')
 
+//sets default margin to be used by 
 register("command", (margin) => {
     if (isNaN(parseFloat(margin))) {
         ChatLib.chat(`'${margin}' is not a valid margin!`)
@@ -47,6 +53,8 @@ register("command", (margin) => {
     }
 }).setName('lbsetdefaultmargin')
 
+//TODO: make lbitems take player name
+//lists items put in last trade
 register("command", () => {
     for (i = 0; i < itemsInTrade.length; i ++) {
         if (itemsInTrade[i] == null) {
@@ -56,6 +64,7 @@ register("command", () => {
     }
 }).setName('lbitems')
 
+//puts lore of item of given index (int) in chat 
 register("command", (index) => {
     lore = itemsInTradeLore[parseInt(index - 1)]
 
@@ -70,6 +79,15 @@ register("command", (index) => {
         ChatLib.chat(chatLine)
     }
 }).setName('lbitemlore')
+
+//lists players traded with in chat
+register("command", () =>{
+    for (i = 0; i < players.length; i++) {
+        ChatLib.chat(`${i}: ${players[i]}`)
+    }
+}).setName('lbplayers')
+
+//other things
 
 register('tick', () => {
     gui = Player.getOpenedInventory()
