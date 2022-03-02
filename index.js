@@ -81,14 +81,18 @@ register('tick', () => {
         playerName = guiname.slice(5)
         if (!players.includes(playerName)) {
             players[players.length] = playerName
+            eval(`
+                const ${playerName}Items = []; 
+                const ${playerName}Lore = [];`
+            )
         }
 
         for (i = 0; i < 16; i++) {
             item = gui.getStackInSlot(tradeMenuSlots[i])
 
             if (item != null) {
-                itemsInTrade[i] = item.getName()
-                itemsInTradeLore[i] = item.getLore()
+                eval(`${playerName}Items[${i}] = ${item.getName()}`) 
+                eval(`${playerName}Lore[${i}] = ${item.getLore()}`)
             }
         }
     }
