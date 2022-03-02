@@ -2,7 +2,7 @@
 // get items inside of trade menu and put them on screen
 // working config
 const players = []
-
+const lastTraded = null
 const tradeMenuSlots = [5, 6, 7, 8, 14, 15, 16, 17, 23, 24, 25, 26, 32, 33, 34, 35] //im too lazy to actualy do the math on this
 const chatLine = '&b-----------------------------------------------------'
 
@@ -53,6 +53,13 @@ register("command", (margin) => {
 
 //lists items put in last trade
 register("command", (player) => {
+    if (lastTraded == null) {
+        ChatLib.chat('&cYou have not traded with anyone!')
+    }
+    else if (!players.includes(player)) {
+        ChatLib.charAt('&cYou have not traded with this player!')
+    }
+
     if (player == undefined) {
         player = lastTraded
     }
@@ -66,6 +73,7 @@ register("command", (player) => {
     }
 }).setName('lbitems')
 
+//TODO: make this take player name
 //puts lore of item of given index (int) in chat 
 register("command", (index) => {
     lore = itemsInTradeLore[parseInt(index - 1)]
@@ -84,8 +92,13 @@ register("command", (index) => {
 
 //lists players traded with in chat
 register("command", () =>{
-    for (i = 0; i < players.length; i++) {
-        ChatLib.chat(`${i}: ${players[i]}`)
+    if (lastTraded == null) {
+        ChatLib.chat('&cYou have not traded with anyone!')
+    }
+    else {
+        for (i = 0; i < players.length; i++) {
+            ChatLib.chat(`${i}: ${players[i]}`)
+        }
     }
 }).setName('lbplayers')
 
@@ -99,7 +112,7 @@ register('tick', () => {
         wipeItems()
         
         playerName = guiname.slice(5)
-        const lastTraded = playerName
+        lastTraded = playerName
         if (!players.includes(playerName)) {
             players[players.length] = playerName
             eval(`
